@@ -2,7 +2,12 @@
   <q-layout>
     <q-page padding>
       <h4>Ini Todo</h4>
-      <q-btn color="primary" label="Create" style="margin-bottom:10px" />
+      <q-btn
+        color="primary"
+        label="Create"
+        style="margin-bottom:10px"
+        to="/todo/create"
+      />
       <q-markup-table>
         <thead>
           <tr class="text-center">
@@ -14,7 +19,12 @@
           </tr>
         </thead>
         <tbody>
-          <ListTodo v-for="item in todo" :key="item.id" :todo="item" />
+          <ListTodo
+            v-for="item in todo"
+            :key="item.id"
+            :todo="item"
+            @refresh-table="getData"
+          />
         </tbody>
       </q-markup-table>
     </q-page>
