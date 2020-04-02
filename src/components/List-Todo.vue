@@ -11,7 +11,12 @@
         :to="`/todo/${todo.id}`"
         class="q-mr-md"
       />
-      <q-btn color="purple" label="Edit" class="q-mr-md" />
+      <q-btn
+        color="purple"
+        label="Edit"
+        class="q-mr-md"
+        :to="`/todo/${todo.id}/edit`"
+      />
       <q-btn color="red" label="Delete" @click="deleteBtn" />
     </td>
   </tr>

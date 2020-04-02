@@ -10,7 +10,8 @@ const routes = [
         path: "/todo/create",
         component: () => import("pages/todo/Create.vue")
       },
-      { path: "/todo/:id", component: () => import("pages/todo/Detail.vue") }
+      { path: "/todo/:id", component: () => import("pages/todo/Detail.vue") },
+      { path: "/todo/:id/edit", component: () => import("pages/todo/Edit.vue") }
     ]
   }
 ];

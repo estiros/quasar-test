@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>Ini Create To Do</h4>
+    <h4>Ini Edit To Do {{ $route.params.id }}</h4>
     <div class="q-pa-md">
       <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
         <q-input
@@ -46,9 +46,18 @@ export default {
       completed: false
     };
   },
+  mounted() {
+    this.getData();
+  },
   methods: {
+    async getData() {
+      const res = await this.$axios.get(`todos/${this.$route.params.id}`);
+      this.user_id = res.data.userId;
+      this.title = res.data.title;
+      this.completed = res.data.completed;
+    },
     async onSubmit() {
-      await this.$axios.post("todos", {
+      await this.$axios.patch(`todos/${this.$route.params.id}`, {
         userId: this.user_id,
         title: this.title,
         completed: this.completed
