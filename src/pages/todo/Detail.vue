@@ -20,8 +20,18 @@ export default {
   },
   methods: {
     async getDetail() {
-      const res = await this.$axios.get(`todos/${this.$route.params.id}`);
-      this.detail = res.data;
+      try {
+        const res = await this.$axios.get(`todos/${this.$route.params.id}`);
+        this.detail = res.data;
+      } catch (error) {
+        console.log(error);
+        const data = this.$q.localStorage.getItem("todo");
+        data.map(item => {
+          if (item.id == this.$route.params.id) {
+            this.detail = item;
+          }
+        });
+      }
     }
   }
 };

@@ -68,6 +68,12 @@ export default {
           caption: "CRUD API",
           icon: "check",
           link: "#/todo"
+        },
+        {
+          title: "Catatan",
+          caption: "Belajar Vuex",
+          icon: "description",
+          link: "#/catatan"
         }
       ]
     };

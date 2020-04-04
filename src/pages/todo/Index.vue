@@ -80,8 +80,13 @@ export default {
   },
   methods: {
     async getData() {
-      const res = await this.$axios.get("todos");
-      this.todo = res.data;
+      try {
+        const res = await this.$axios.get("todos");
+        this.$q.localStorage.set("todo", res.data);
+      } catch (error) {
+        console.log("ga konek");
+      }
+      this.todo = this.$q.localStorage.getItem("todo");
     },
     async search() {
       const res = await this.$axios.get(`todos/?q=${this.textSearch}`);

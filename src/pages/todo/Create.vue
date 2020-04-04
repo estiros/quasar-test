@@ -48,11 +48,34 @@ export default {
   },
   methods: {
     async onSubmit() {
-      await this.$axios.post("todos", {
-        userId: this.user_id,
-        title: this.title,
-        completed: this.completed
-      });
+      try {
+        await this.$axios.post("todos", {
+          userId: this.user_id,
+          title: this.title,
+          completed: this.completed
+        });
+      } catch (error) {
+        let data = this.$q.localStorage.getItem("todo");
+        if (data.length === 0) {
+          data = [
+            {
+              id: 1,
+              userId: this.user_id,
+              title: this.title,
+              completed: this.completed
+            }
+          ];
+        } else {
+          const idLast = data[data.length - 1].id;
+          data.push({
+            id: parseInt(idLast) + 1,
+            userId: this.user_id,
+            title: this.title,
+            completed: this.completed
+          });
+        }
+        this.$q.localStorage.set("todo", data);
+      }
 
       this.$router.push("/todo");
     },

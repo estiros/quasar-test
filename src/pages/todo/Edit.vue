@@ -51,17 +51,40 @@ export default {
   },
   methods: {
     async getData() {
-      const res = await this.$axios.get(`todos/${this.$route.params.id}`);
-      this.user_id = res.data.userId;
-      this.title = res.data.title;
-      this.completed = res.data.completed;
+      try {
+        const res = await this.$axios.get(`todos/${this.$route.params.id}`);
+        this.user_id = res.data.userId;
+        this.title = res.data.title;
+        this.completed = res.data.completed;
+      } catch (error) {
+        const data = this.$q.localStorage.getItem("todo");
+        data.map(item => {
+          if (item.id == this.$route.params.id) {
+            this.user_id = item.userId;
+            this.title = item.title;
+            this.completed = item.completed;
+          }
+        });
+      }
     },
     async onSubmit() {
-      await this.$axios.patch(`todos/${this.$route.params.id}`, {
-        userId: this.user_id,
-        title: this.title,
-        completed: this.completed
-      });
+      try {
+        await this.$axios.patch(`todos/${this.$route.params.id}`, {
+          userId: this.user_id,
+          title: this.title,
+          completed: this.completed
+        });
+      } catch (error) {
+        const data = this.$q.localStorage.getItem("todo");
+        data.map(item => {
+          if (item.id == this.$route.params.id) {
+            item.userId = this.user_id;
+            item.title = this.title;
+            item.completed = this.completed;
+          }
+        });
+        this.$q.localStorage.set("todo", data);
+      }
 
       this.$router.push("/todo");
     },
