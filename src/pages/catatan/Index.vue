@@ -81,7 +81,7 @@ export default {
     //   return this.$store.state.catatan.catatanState;
     // },
 
-    // ...mapGetters('module', {varianbel:'fungsi di getter'})
+    // ...mapGetters('module', {variabel:'fungsi di getter'})
     // ...mapGetters("catatan", { catatan: "getCatatan", test: "getTest" }),
     ...mapGetters("catatan", { catatan: "getCatatan" }),
   },

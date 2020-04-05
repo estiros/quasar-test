@@ -50,7 +50,7 @@ export default {
   name: "MainLayout",
 
   components: {
-    EssentialLink
+    EssentialLink,
   },
 
   data() {
@@ -61,22 +61,28 @@ export default {
           title: "Notes",
           caption: "Belajar localStorage",
           icon: "receipt",
-          link: "#/notes"
+          link: "#/notes",
         },
         {
           title: "To Do",
           caption: "CRUD API",
           icon: "check",
-          link: "#/todo"
+          link: "#/todo",
         },
         {
           title: "Catatan",
           caption: "Belajar Vuex",
           icon: "description",
-          link: "#/catatan"
-        }
-      ]
+          link: "#/catatan",
+        },
+        {
+          title: "To Do Vuex",
+          caption: "CRUD API with Vuex and Local Storage",
+          icon: "restore",
+          link: "#/todo-vuex",
+        },
+      ],
     };
-  }
+  },
 };
 </script>
