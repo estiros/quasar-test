@@ -8,14 +8,14 @@
       <q-btn
         color="secondary"
         label="View"
-        :to="`/todo/${todo.id}`"
+        :to="`/todo-vuex/${todo.id}`"
         class="q-mr-md"
       />
       <q-btn
         color="purple"
         label="Edit"
         class="q-mr-md"
-        :to="`/todo/${todo.id}/edit`"
+        :to="`/todo-vuex/${todo.id}/edit`"
       />
       <q-btn color="red" label="Delete" @click="deleteBtn" />
     </td>
@@ -23,31 +23,20 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   props: ["todo"],
   methods: {
+    ...mapActions("todo", ["deleteTodo"]),
     async deleteBtn() {
       const setuju = confirm("Are you sure want to delete this data?");
       if (setuju) {
-        try {
-          await this.$axios.delete(`todos/${this.todo.id}`);
-        } catch (error) {
-          const data = this.$q.localStorage.getItem("todo");
-
-          let index = 0;
-          for (let i = 0; i < data.length; i++) {
-            if (data[i].id == this.todo.id) {
-              index = i;
-            }
-          }
-          data.splice(index, 1);
-          this.$q.localStorage.set("todo", data);
-        }
+        await this.deleteTodo(this.todo.id);
         this.$emit("refresh-table");
       } else {
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

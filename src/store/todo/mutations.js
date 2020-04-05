@@ -8,4 +8,7 @@ const setTodo = (state, payload) => {
 const setIsEmpty = (state, payload) => {
   state.isEmpty = payload;
 };
-export { setTodo, setIsEmpty };
+const setDetail = (state, payload) => {
+  state.detail = payload;
+};
+export { setTodo, setIsEmpty, setDetail };

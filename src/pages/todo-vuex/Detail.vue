@@ -9,31 +9,39 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+// import { getDetail } from "../../store/todo/getters";
 export default {
   data() {
     return {
-      detail: {}
+      // detail: {},
     };
   },
+  computed: {
+    ...mapGetters("todo", {
+      detail: "getDetail",
+    }),
+  },
   mounted() {
-    this.getDetail();
+    this.getDetail(this.$route.params.id);
   },
   methods: {
-    async getDetail() {
-      try {
-        const res = await this.$axios.get(`todos/${this.$route.params.id}`);
-        this.detail = res.data;
-      } catch (error) {
-        console.log(error);
-        const data = this.$q.localStorage.getItem("todo");
-        data.map(item => {
-          if (item.id == this.$route.params.id) {
-            this.detail = item;
-          }
-        });
-      }
-    }
-  }
+    ...mapActions("todo", ["getDetail"]),
+    // async getDetail() {
+    //   try {
+    //     const res = await this.$axios.get(`todos/${this.$route.params.id}`);
+    //     this.detail = res.data;
+    //   } catch (error) {
+    //     console.log(error);
+    //     const data = this.$q.localStorage.getItem("todo");
+    //     data.map((item) => {
+    //       if (item.id == this.$route.params.id) {
+    //         this.detail = item;
+    //       }
+    //     });
+    //   }
+    // },
+  },
 };
 </script>
 

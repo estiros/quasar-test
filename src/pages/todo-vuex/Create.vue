@@ -12,7 +12,7 @@
           hint="User ID berupa nomor"
           lazy-rules
           :rules="[
-            val => (val !== null && val !== '') || 'Please type user id'
+            (val) => (val !== null && val !== '') || 'Please type user id',
           ]"
         />
 
@@ -21,7 +21,9 @@
           v-model="title"
           label="Title"
           lazy-rules
-          :rules="[val => (val !== null && val !== '') || 'Please type title']"
+          :rules="[
+            (val) => (val !== null && val !== '') || 'Please type title',
+          ]"
         />
 
         <!-- <q-toggle v-model="completed" label="I accept the license and terms" /> -->
@@ -38,53 +40,33 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
       user_id: 0,
       title: "",
-      completed: false
+      completed: false,
     };
   },
   methods: {
+    ...mapActions("todo", ["createTodo"]),
     async onSubmit() {
-      try {
-        await this.$axios.post("todos", {
-          userId: this.user_id,
+      await this.createTodo({
+        data: {
+          user_id: this.user_id,
           title: this.title,
-          completed: this.completed
-        });
-      } catch (error) {
-        let data = this.$q.localStorage.getItem("todo");
-        if (data.length === 0) {
-          data = [
-            {
-              id: 1,
-              userId: this.user_id,
-              title: this.title,
-              completed: this.completed
-            }
-          ];
-        } else {
-          const idLast = data[data.length - 1].id;
-          data.push({
-            id: parseInt(idLast) + 1,
-            userId: this.user_id,
-            title: this.title,
-            completed: this.completed
-          });
-        }
-        this.$q.localStorage.set("todo", data);
-      }
-
-      this.$router.push("/todo");
+          completed: this.completed,
+        },
+      });
+      this.$router.push("/todo-vuex");
     },
     onReset() {
       this.user_id = "";
       this.title = "";
       this.completed = false;
-    }
-  }
+    },
+  },
 };
 </script>
 

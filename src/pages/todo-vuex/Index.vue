@@ -4,7 +4,7 @@
       <h4>Ini Todo Vuex</h4>
       <div class="row q-mb-sm">
         <div class="col-6">
-          <q-btn color="primary" label="Create" to="/todo/create" />
+          <q-btn color="primary" label="Create" to="/todo-vuex/create" />
         </div>
         <div class="col-4">
           <div class="row">
@@ -67,13 +67,11 @@ export default {
   components: { ListTodo },
   data() {
     return {
-      // todo: [],
       textSearch: "",
       completed: [
         { id: false, name: "False" },
         { id: true, name: "True" },
       ],
-      // isEmpty: false,
     };
   },
   mounted() {
@@ -82,29 +80,6 @@ export default {
   },
   methods: {
     ...mapActions("todo", ["getTodo", "searchTodo", "filterTodo"]),
-    // async getData() {
-    //   try {
-    //     const res = await this.$axios.get("todos");
-    //     this.$q.localStorage.set("todo", res.data);
-    //   } catch (error) {
-    //     console.log("ga konek");
-    //   }
-    //   this.todo = this.$q.localStorage.getItem("todo");
-    // },
-    // async search() {
-    //   const res = await this.$axios.get(`todos/?q=${this.textSearch}`);
-    //   this.todo = res.data;
-    //   if (res.data.length > 0) {
-    //     this.isEmpty = false;
-    //   } else {
-    //     this.isEmpty = true;
-    //   }
-    //   console.log(res);
-    // },
-    // async filter(item) {
-    //   const res = await this.$axios.get(`todos/?completed=${item}`);
-    //   this.todo = res.data;
-    // },
   },
   computed: {
     ...mapGetters("todo", {

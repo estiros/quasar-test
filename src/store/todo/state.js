@@ -3,5 +3,6 @@ export default function () {
     //
     todo: [],
     isEmpty: false,
+    detail: {},
   };
 }
