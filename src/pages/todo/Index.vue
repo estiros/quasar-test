@@ -3,8 +3,11 @@
     <q-page padding>
       <h4>Ini Todo</h4>
       <div class="row q-mb-sm">
-        <div class="col-6">
+        <div class="col-3">
           <q-btn color="primary" label="Create" to="/todo/create" />
+        </div>
+        <div class="col-3">
+          <q-btn color="primary" label="Print" @click="print" />
         </div>
         <div class="col-4">
           <div class="row">
@@ -35,7 +38,7 @@
         </div>
       </div>
 
-      <q-markup-table>
+      <q-markup-table id="printMe">
         <thead>
           <tr class="text-center">
             <th>ID</th>
@@ -101,6 +104,10 @@ export default {
     async filter(item) {
       const res = await this.$axios.get(`todos/?completed=${item}`);
       this.todo = res.data;
+    },
+    print() {
+      // Pass the element id here
+      this.$htmlToPaper("printMe");
     }
   }
 };
